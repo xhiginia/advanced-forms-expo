@@ -1,14 +1,30 @@
 import { Link } from "expo-router";
 import { Formik } from "formik";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import FormInput from "../src/components/FormInput";
 import { employeeSchema } from "../src/forms/employeeSchema";
+import { colors } from "../src/styles/colors";
+import { typography } from "../src/styles/typography";
 
 export default function Employee() {
+  const buttonBase = {
+    paddingVertical: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  };
+
+  const buttonShadow = {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    elevation: 3,
+  };
   return (
     <ScrollView contentContainerStyle={{ padding: 20 }}>
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20 }}>
-        Employee Information Form
-      </Text>
+      <Text style={typography.title}>Employee Information Form</Text>
 
       <Formik
         initialValues={{
@@ -31,115 +47,71 @@ export default function Employee() {
           isValid,
         }) => (
           <View>
-            {/* Full Name */}
-            <Text>Full Name</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor:
-                  touched.fullName && errors.fullName ? "red" : "#ccc",
-                padding: 10,
-                borderRadius: 6,
-                marginBottom: 5,
-              }}
+            <FormInput
+              label="Full Name"
+              icon="person"
               placeholder="Enter full name"
               onChangeText={handleChange("fullName")}
               onBlur={handleBlur("fullName")}
               value={values.fullName}
+              error={errors.fullName}
+              touched={touched.fullName}
             />
-            {touched.fullName && errors.fullName && (
-              <Text style={{ color: "red" }}>{errors.fullName}</Text>
-            )}
 
-            {/* Email */}
-            <Text style={{ marginTop: 15 }}>Email</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: touched.email && errors.email ? "red" : "#ccc",
-                padding: 10,
-                borderRadius: 6,
-                marginBottom: 5,
-              }}
+            <FormInput
+              label="Email"
+              icon="email"
               placeholder="Enter email"
               keyboardType="email-address"
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
               value={values.email}
+              error={errors.email}
+              touched={touched.email}
             />
-            {touched.email && errors.email && (
-              <Text style={{ color: "red" }}>{errors.email}</Text>
-            )}
 
-            {/* Phone */}
-            <Text style={{ marginTop: 15 }}>Phone Number</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: touched.phone && errors.phone ? "red" : "#ccc",
-                padding: 10,
-                borderRadius: 6,
-                marginBottom: 5,
-              }}
+            <FormInput
+              label="Phone Number"
+              icon="phone"
               placeholder="Enter phone number"
               keyboardType="number-pad"
               onChangeText={handleChange("phone")}
               onBlur={handleBlur("phone")}
               value={values.phone}
+              error={errors.phone}
+              touched={touched.phone}
             />
-            {touched.phone && errors.phone && (
-              <Text style={{ color: "red" }}>{errors.phone}</Text>
-            )}
 
-            {/* Employee ID */}
-            <Text style={{ marginTop: 15 }}>Employee ID</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor:
-                  touched.employeeId && errors.employeeId ? "red" : "#ccc",
-                padding: 10,
-                borderRadius: 6,
-                marginBottom: 5,
-              }}
+            <FormInput
+              label="Employee ID"
+              icon="badge"
               placeholder="Enter employee ID"
               onChangeText={handleChange("employeeId")}
               onBlur={handleBlur("employeeId")}
               value={values.employeeId}
+              error={errors.employeeId}
+              touched={touched.employeeId}
             />
-            {touched.employeeId && errors.employeeId && (
-              <Text style={{ color: "red" }}>{errors.employeeId}</Text>
-            )}
 
-            {/* Position */}
-            <Text style={{ marginTop: 15 }}>Position</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor:
-                  touched.position && errors.position ? "red" : "#ccc",
-                padding: 10,
-                borderRadius: 6,
-                marginBottom: 5,
-              }}
+            <FormInput
+              label="Position"
+              icon="work"
               placeholder="Enter position"
               onChangeText={handleChange("position")}
               onBlur={handleBlur("position")}
               value={values.position}
+              error={errors.position}
+              touched={touched.position}
             />
-            {touched.position && errors.position && (
-              <Text style={{ color: "red" }}>{errors.position}</Text>
-            )}
 
-            {/* Submit */}
             <Pressable
               onPress={handleSubmit}
               disabled={!isValid}
               style={{
-                backgroundColor: isValid ? "#007bff" : "#9bbce0",
+                backgroundColor: isValid ? colors.primary : "#9bbce0",
                 padding: 15,
                 borderRadius: 6,
-                marginTop: 25,
+                marginTop: 10,
               }}
             >
               <Text
@@ -149,10 +121,13 @@ export default function Employee() {
               </Text>
             </Pressable>
 
-            {/* Navigation */}
             <Link
               href="/"
-              style={{ marginTop: 20, color: "blue", textAlign: "center" }}
+              style={{
+                marginTop: 20,
+                color: colors.primary,
+                textAlign: "center",
+              }}
             >
               Back to Home
             </Link>
