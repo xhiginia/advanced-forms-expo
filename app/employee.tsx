@@ -1,24 +1,25 @@
 import { Link } from "expo-router";
 import { Formik } from "formik";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
-import { registerSchema } from "../src/forms/registerSchema";
+import { employeeSchema } from "../src/forms/employeeSchema";
 
-export default function Register() {
+export default function Employee() {
   return (
     <ScrollView contentContainerStyle={{ padding: 20 }}>
       <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20 }}>
-        Create an Account
+        Employee Information Form
       </Text>
 
       <Formik
         initialValues={{
           fullName: "",
           email: "",
-          password: "",
-          confirmPassword: "",
+          phone: "",
+          employeeId: "",
+          position: "",
         }}
-        validationSchema={registerSchema}
-        onSubmit={(values) => console.log("Registered:", values)}
+        validationSchema={employeeSchema}
+        onSubmit={(values) => console.log("Employee Submitted:", values)}
       >
         {({
           handleChange,
@@ -70,48 +71,64 @@ export default function Register() {
               <Text style={{ color: "red" }}>{errors.email}</Text>
             )}
 
-            {/* Password */}
-            <Text style={{ marginTop: 15 }}>Password</Text>
+            {/* Phone */}
+            <Text style={{ marginTop: 15 }}>Phone Number</Text>
             <TextInput
               style={{
                 borderWidth: 1,
-                borderColor:
-                  touched.password && errors.password ? "red" : "#ccc",
+                borderColor: touched.phone && errors.phone ? "red" : "#ccc",
                 padding: 10,
                 borderRadius: 6,
                 marginBottom: 5,
               }}
-              placeholder="Enter password"
-              secureTextEntry
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-              value={values.password}
+              placeholder="Enter phone number"
+              keyboardType="number-pad"
+              onChangeText={handleChange("phone")}
+              onBlur={handleBlur("phone")}
+              value={values.phone}
             />
-            {touched.password && errors.password && (
-              <Text style={{ color: "red" }}>{errors.password}</Text>
+            {touched.phone && errors.phone && (
+              <Text style={{ color: "red" }}>{errors.phone}</Text>
             )}
 
-            {/* Confirm Password */}
-            <Text style={{ marginTop: 15 }}>Confirm Password</Text>
+            {/* Employee ID */}
+            <Text style={{ marginTop: 15 }}>Employee ID</Text>
             <TextInput
               style={{
                 borderWidth: 1,
                 borderColor:
-                  touched.confirmPassword && errors.confirmPassword
-                    ? "red"
-                    : "#ccc",
+                  touched.employeeId && errors.employeeId ? "red" : "#ccc",
                 padding: 10,
                 borderRadius: 6,
                 marginBottom: 5,
               }}
-              placeholder="Confirm password"
-              secureTextEntry
-              onChangeText={handleChange("confirmPassword")}
-              onBlur={handleBlur("confirmPassword")}
-              value={values.confirmPassword}
+              placeholder="Enter employee ID"
+              onChangeText={handleChange("employeeId")}
+              onBlur={handleBlur("employeeId")}
+              value={values.employeeId}
             />
-            {touched.confirmPassword && errors.confirmPassword && (
-              <Text style={{ color: "red" }}>{errors.confirmPassword}</Text>
+            {touched.employeeId && errors.employeeId && (
+              <Text style={{ color: "red" }}>{errors.employeeId}</Text>
+            )}
+
+            {/* Position */}
+            <Text style={{ marginTop: 15 }}>Position</Text>
+            <TextInput
+              style={{
+                borderWidth: 1,
+                borderColor:
+                  touched.position && errors.position ? "red" : "#ccc",
+                padding: 10,
+                borderRadius: 6,
+                marginBottom: 5,
+              }}
+              placeholder="Enter position"
+              onChangeText={handleChange("position")}
+              onBlur={handleBlur("position")}
+              value={values.position}
+            />
+            {touched.position && errors.position && (
+              <Text style={{ color: "red" }}>{errors.position}</Text>
             )}
 
             {/* Submit */}
@@ -119,7 +136,7 @@ export default function Register() {
               onPress={handleSubmit}
               disabled={!isValid}
               style={{
-                backgroundColor: isValid ? "#28a745" : "#9ed6b5",
+                backgroundColor: isValid ? "#007bff" : "#9bbce0",
                 padding: 15,
                 borderRadius: 6,
                 marginTop: 25,
@@ -128,21 +145,14 @@ export default function Register() {
               <Text
                 style={{ color: "white", textAlign: "center", fontSize: 16 }}
               >
-                Sign Up
+                Submit
               </Text>
             </Pressable>
 
             {/* Navigation */}
             <Link
-              href="/login"
-              style={{ marginTop: 20, color: "blue", textAlign: "center" }}
-            >
-              Already have an account? Sign In
-            </Link>
-
-            <Link
               href="/"
-              style={{ marginTop: 10, color: "blue", textAlign: "center" }}
+              style={{ marginTop: 20, color: "blue", textAlign: "center" }}
             >
               Back to Home
             </Link>
